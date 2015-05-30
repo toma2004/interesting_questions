@@ -38,6 +38,30 @@ def solve(arr):
                 mydict[p[i]] = (p[i],i)
             
     print longest_sub
+    
+def longest_common_subsequence(str1,str2):
+    '''The idea in for loop is that we divide the string into small substrings and check
+       if last characters in both strings match, remove that last character (as it will be part of LCS) and plus 1
+       else we know that either the character in str1 or character in str2 will be part of LCS. We don't know which one,
+       so we will take max to see which one gives longer LCS'''
+    n1 = len(str1)
+    n2 = len(str2)
+    sol = [[0 for i in range(n2+1)] for j in range(n1+1)]
+    
+    for i in range(1,n1+1,1):
+        for j in range(1,n2+1,1):
+            if str1[i-1] == str2[j-1]:
+                sol[i][j] = sol[i-1][j-1]+1
+            else:
+                sol[i][j] = max(sol[i-1][j],sol[i][j-1])
+    print sol[n1][n2]
+    
+    
+    
 myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
 #myarr = [1,4,-3,-4,6,-7,8,-5]
 solve(myarr)
+
+str1 = ['A','G','G','T','A','B']
+str2 = ['G','X','T','X','A','Y','B']
+longest_common_subsequence(str1, str2)
