@@ -24,7 +24,6 @@ def solve(arr):
     for i in range(1,n,1):
         p[i] = p[i-1]+arr[i]
      
-    print p   
     for i in range(len(p)):
         if p[i] == 0:
             if longest_sub < (i-0+1):
@@ -56,7 +55,18 @@ def longest_common_subsequence(str1,str2):
                 sol[i][j] = max(sol[i-1][j],sol[i][j-1])
     print sol[n1][n2]
     
+def max_sum_contiguous_subsequence(arr):
+    '''Given an array, find the subsequence in the array that gives the maximum sum
+       Use DP, we can construct a recurrence formula as below:
+       at sub problem i, we can either include i to make sum bigger or keep i since it's already bigger than the sum'''
+    n = len(arr)
+    sol = [0 for i in range (n)]
     
+    for i in range(1,n,1):
+        sol[i] = max(sol[i-1]+arr[i],arr[i])
+    
+    print sol[n-1]
+
     
 myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
 #myarr = [1,4,-3,-4,6,-7,8,-5]
@@ -65,3 +75,6 @@ solve(myarr)
 str1 = ['A','G','G','T','A','B']
 str2 = ['G','X','T','X','A','Y','B']
 longest_common_subsequence(str1, str2)
+
+anArr = [1,3,-4,9]
+max_sum_contiguous_subsequence(anArr)
