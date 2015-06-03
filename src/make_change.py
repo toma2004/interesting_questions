@@ -29,7 +29,13 @@ def solve(money,coins):
         sol[i] = min
         mycoin[i] = temp
     print sol[money]
-    print mycoin
+    #print out coins used
+    change = money
+    while change > 0:
+        temp = mycoin[change]
+        print temp
+        change = change - temp
+        
     
 coins_arr=[1,5,10,25]
 my_money = 91

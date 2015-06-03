@@ -7,6 +7,8 @@ problem: Given is an array containing N numbers, which are either 1, 0 or -1.
 Find out the length of the longest contiguous subsequence going from index i to j, such that A[i]+A[i+1]..+A[j-1]+A[j] == 0.
 
 '''
+from __future__ import division
+import sys
 
 def solve(arr):
     '''Construct a new array where each element = sum of previous elements + itself
@@ -36,7 +38,7 @@ def solve(arr):
             except KeyError:
                 mydict[p[i]] = (p[i],i)
             
-    print longest_sub
+    print "solution for problem 1: ",longest_sub
     
 def longest_common_subsequence(str1,str2):
     '''The idea in for loop is that we divide the string into small substrings and check
@@ -53,7 +55,7 @@ def longest_common_subsequence(str1,str2):
                 sol[i][j] = sol[i-1][j-1]+1
             else:
                 sol[i][j] = max(sol[i-1][j],sol[i][j-1])
-    print sol[n1][n2]
+    print "solution for problem 2: ",sol[n1][n2]
     
 def max_sum_contiguous_subsequence(arr):
     '''Given an array, find the subsequence in the array that gives the maximum sum
@@ -65,9 +67,67 @@ def max_sum_contiguous_subsequence(arr):
     for i in range(1,n,1):
         sol[i] = max(sol[i-1]+arr[i],arr[i])
     
-    print sol[n-1]
-
+    print "solution for problem 3: ",sol[n-1]
     
+def longest_increasing_subsequence(arr):
+    '''Given an array with lenth n, find the maximum length of longest increasing subsequence (not necessarily contiguous)
+       Big O (n2)'''
+    n = len(arr)
+    if n == 0:
+        print 0
+    sol = [0 for i in range(n)]
+    toprint = [0 for i in range(n)]
+    sol[0] = 1
+    for i in range(1,n,1):
+        mymax = -sys.maxint-1
+        for j in range(i):
+            if arr[i] > arr[j]:
+                if mymax < sol[j]+1:
+                    mymax = sol[j]+1
+                    temp = j
+        sol[i]=mymax
+        toprint[i] = temp #predecessor number
+    
+    print "solution for problem 4: ", max(sol[i] for i in range(n))
+    max_index = sol.index(max(sol))
+    print "longest increasing subsequence for problem 4: "
+    while max_index >= 0:
+        print arr[max_index]
+        if max_index == 0:
+            max_index -= 1
+            continue
+        max_index = toprint[max_index]
+
+def findIndex(arr,f,l,val):
+    '''Binary search'''
+    while l>f:
+        m = (l-f)//2
+        if arr[m] >= val:
+            f = m
+        else:
+            l = m
+    return l
+    
+def efficient_LIS(arr):
+    n = len(arr)
+    if n == 0:
+        print 0
+    lastElem = [0 for i in range(n)]
+    lastElem[0] = arr[0]
+    mylen = 1
+    
+    for i in range(n):
+        if arr[i] < lastElem[0]:
+            lastElem[0] = arr[i]
+        elif arr[i] > lastElem[mylen-1]:
+            lastElem[mylen] = arr[i]
+            mylen += 1
+        else:
+            myindex = findIndex(lastElem,0,mylen,arr[i])
+            lastElem[myindex] = arr[i]
+    
+    print "Solution for efficient longest subsequence: ",mylen
+        
 myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
 #myarr = [1,4,-3,-4,6,-7,8,-5]
 solve(myarr)
@@ -78,3 +138,7 @@ longest_common_subsequence(str1, str2)
 
 anArr = [1,3,-4,9]
 max_sum_contiguous_subsequence(anArr)
+anArr1 = [1,3,2,7,4,5,3]
+#anArr1 = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+longest_increasing_subsequence(anArr1)
+efficient_LIS(anArr1)
