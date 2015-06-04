@@ -78,6 +78,7 @@ def longest_increasing_subsequence(arr):
     sol = [0 for i in range(n)]
     toprint = [0 for i in range(n)]
     sol[0] = 1
+    temp = 0
     for i in range(1,n,1):
         mymax = -sys.maxint-1
         for j in range(i):
@@ -85,18 +86,26 @@ def longest_increasing_subsequence(arr):
                 if mymax < sol[j]+1:
                     mymax = sol[j]+1
                     temp = j
-        sol[i]=mymax
-        toprint[i] = temp #predecessor number
+        if mymax < 1:
+            sol[i] = 1 #start new subsequence, consider this array [3,1,0,2] where the first element is not part of LIS
+            toprint[i] = i
+        else:
+            sol[i]=mymax
+            toprint[i] = temp #predecessor number
     
     print "solution for problem 4: ", max(sol[i] for i in range(n))
     max_index = sol.index(max(sol))
     print "longest increasing subsequence for problem 4: "
+    atemp = 0
     while max_index >= 0:
         print arr[max_index]
         if max_index == 0:
             max_index -= 1
             continue
         max_index = toprint[max_index]
+        if max_index == atemp:
+            break
+        atemp = max_index
 
 def findIndex(arr,f,l,val):
     '''Binary search'''
@@ -127,18 +136,19 @@ def efficient_LIS(arr):
             lastElem[myindex] = arr[i]
     
     print "Solution for efficient longest subsequence: ",mylen
-        
-myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
-#myarr = [1,4,-3,-4,6,-7,8,-5]
-solve(myarr)
 
-str1 = ['A','G','G','T','A','B']
-str2 = ['G','X','T','X','A','Y','B']
-longest_common_subsequence(str1, str2)
-
-anArr = [1,3,-4,9]
-max_sum_contiguous_subsequence(anArr)
-anArr1 = [1,3,2,7,4,5,3]
-#anArr1 = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
-longest_increasing_subsequence(anArr1)
-efficient_LIS(anArr1)
+if __name__ == "__main__":
+    myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
+    #myarr = [1,4,-3,-4,6,-7,8,-5]
+    solve(myarr)
+    
+    str1 = ['A','G','G','T','A','B']
+    str2 = ['G','X','T','X','A','Y','B']
+    longest_common_subsequence(str1, str2)
+    
+    anArr = [1,3,-4,9]
+    max_sum_contiguous_subsequence(anArr)
+    anArr1 = [1,3,2,7,4,5,3]
+    #anArr1 = [0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15]
+    longest_increasing_subsequence(anArr1)
+    efficient_LIS(anArr1)
