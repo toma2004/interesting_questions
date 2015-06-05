@@ -42,7 +42,7 @@ def solve(str1,str2,Cd,Ci,Cc):
     print sol[n-1][m-1]
     
     
-str1 = "bce"
+str1 = "bdeilkj"
 str2 = "bcefg"
 solve(str1,str2,5,2,1)
         
