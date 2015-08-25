@@ -9,12 +9,10 @@ Given a string, print out all of its permutation
 
 
 def str_perm(str1):
-    print str1
     if len(str1) == 1:
         return [str1]
     
     perms = str_perm(str1[1:])
-    print perms
     mychar = str1[0]
     #print mychar
     result = []
@@ -36,4 +34,5 @@ def str_perm2(str1,first,last,count=0):
             
 #print str_perm("abc")
 
-str_perm2(['a','b','c','d'],0,3)
+#str_perm2(['a','b','c','d'],0,3)
+print str_perm("a,b,c")

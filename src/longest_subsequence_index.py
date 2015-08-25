@@ -138,8 +138,8 @@ def efficient_LIS(arr):
     print "Solution for efficient longest subsequence: ",mylen
 
 if __name__ == "__main__":
-    myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
-    #myarr = [1,4,-3,-4,6,-7,8,-5]
+    #myarr = [1,-1,1,0,1,1,-1,1,1,1,-1]
+    myarr = [1,4,-3,-4,6,-7,8,-5]
     solve(myarr)
     
     str1 = ['A','G','G','T','A','B']
